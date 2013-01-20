@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,31 +14,32 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 
 import com.github.minemod.Logger;
+import com.github.minemod.file.FileManager;
 
 @SuppressWarnings("serial")
 public class OpenLaunchGuiMain extends JFrame implements ActionListener 
 {
-    private JButton console;
-    private JButton jButton1;
-    private JLabel jLabel1;
-    private JPanel jPanel1;
-    private JProgressBar jProgressBar1;
-    private JScrollPane jScrollPane1;
-    private JScrollPane jScrollPane2;
-    private JTextField jTextField1;
-    private JTextField packCode;
-    private JTextPane web;
-    private JTextPane localPacks;
-    private final static String newline = "\n";
+    public JButton console;
+    public JButton jButton1;
+    public JLabel jLabel1;
+    public JPanel jPanel1;
+    public JProgressBar jProgressBar1;
+    public JScrollPane jScrollPane1;
+    public JScrollPane jScrollPane2;
+    public JTextField jTextField1;
+    public static JTextField packCode;
+    public JTextPane web;
+    public JTextPane localPacks;
+    public final static String newline = "\n";
+    public static boolean consoleOpen = false;
     
     
-    public String VERSION = "0.0.1";
+    public String VERSION = "0.0.3";
 	    
     public OpenLaunchGuiMain()
     {
@@ -56,7 +56,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
     	Patch
     }
     
-    private void initComponents()
+    public void initComponents()
     {
         jPanel1 = new JPanel();
         console = new JButton();
@@ -88,6 +88,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
         packCode.setText("Packcode here");
         packCode.addActionListener(this);
         jButton1.setText("Download");
+        jButton1.addActionListener(this);
 
         web.setEditable(false);
         web.setBackground(new Color(102, 102, 102));
@@ -96,7 +97,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
     	try 
     	{
     		web.setContentType("text/html");
-    		web.setPage("file:///C:/Users/Cammygames/Documents/Development/workspace/OpenLaunch/src/test.html");
+    		web.setPage(FileManager.updateURl);
     	}catch (Exception e)
     	{
     		e.printStackTrace();
@@ -191,12 +192,22 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 		{
 			try {new Console().setVisible(true);}catch(Exception e){e.printStackTrace();}
 			Logger.addToConsole("Launching Console" + newline);
+			consoleOpen = true;
 		}
 		
 		if(event.getSource() == packCode)
 		{
-			  String text = packCode.getText();
-			  	Logger.addToConsole("Pack Code Entered : "+text + newline);
+			 	String text = packCode.getText();
+		      	if (OpenLaunchGuiMain.consoleOpen == true )
+	        	{
+		      		Logger.addToConsole("Pack Code Entered : "+ text + newline);
+			  		Logger.addToConsole(FileManager.modpackURl + newline);
+	        	}
+			  	
+			  	//FileManager.modpackURl = "http://dev.minemod.org/pack/" + text + "/modpack.zip" ;
+			  	FileManager.modpackURl = "https://dl.dropbox.com/u/" + text + "/modpack.zip";
+			  	FileManager.downloadmodpack();
+
 		}
 	}
 }

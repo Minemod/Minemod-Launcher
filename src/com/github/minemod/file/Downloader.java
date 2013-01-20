@@ -8,6 +8,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.Calendar;
 
 import com.github.minemod.Logger;
+import com.github.minemod.gui.OpenLaunchGuiMain;
 
 public class Downloader 
 {
@@ -35,26 +36,34 @@ public class Downloader
 		{
 			Calendar cal = Calendar.getInstance();//get the current time
 			double timeI = cal.getTimeInMillis();
-			Logger.addToConsole("\n Downloading "+ file);
+        	if (OpenLaunchGuiMain.consoleOpen == true )
+        	{
+        		Logger.addToConsole("\n Downloading "+ file);
+        	}
 
 			URL website = new URL(url);
 		    ReadableByteChannel rbc = Channels.newChannel(website.openStream());//open a channel to start streaming data
 		    FileOutputStream fos = new FileOutputStream(loc + file);//starts streaming data
 		    fos.getChannel().transferFrom(rbc, 0, 1 << 24);//streams the data
 
-		    //calcs the time it took to download which for some reason allways seems to be 0.0mills
 		    double timeF = cal.getTimeInMillis();
 		    double timeT = timeF - timeI;		    
 		    File dFile = new File(loc,file);
 		    fos.close();
 		    if(dFile.exists())
 		    {
-		    Logger.addToConsole("\n" + file +" Downloaded in "+ timeT+"mills");
+	        	if (OpenLaunchGuiMain.consoleOpen == true )
+	        	{
+	        			Logger.addToConsole("\n" + file +" Downloaded in "+ timeT+"mills");
+	        	}
 		    return dFile;
 		    }
 		    else
-		    {
-		    	Logger.addToConsole("\n" + file +" failed to download");
+		    {        	
+		    	if (OpenLaunchGuiMain.consoleOpen == true )
+		    	{
+		    		Logger.addToConsole("\n" + file +" failed to download");
+		    	}
 		    }
 
 		}catch(Exception e){e.printStackTrace();}

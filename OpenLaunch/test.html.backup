@@ -1,0 +1,11 @@
+<p style="font-size:20px;color:red;">
+Available mod packs
+
+<hr>
+<div id ="Modpacks" style="background-color:#FFFF00;">
+    <li> Minemod : SMP1 : 123456 </li>
+    <li> Minemod : SMP2 : 234567 </li>	
+    <li> Minemod : SMP3 : 234567 </li>	
+    <li> Cammygames : CammyCraft  : 345678 </li>	
+</div>
+<hr>
