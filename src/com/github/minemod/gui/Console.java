@@ -29,8 +29,8 @@ public class Console extends JFrame
 		 this.setTitle("OpenLaunch Console");
 	 }
 
-	    private void initComponents() 
-	    {
+	 private void initComponents() 
+	 {
 
 	        jPanel1 = new JPanel();
 	        jLabel1 = new JLabel();
@@ -91,5 +91,5 @@ public class Console extends JFrame
 	        );
 
 	        pack();
-	    }
+	   }
 }

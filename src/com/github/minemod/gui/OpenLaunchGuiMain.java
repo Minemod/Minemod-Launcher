@@ -3,10 +3,12 @@ package com.github.minemod.gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,6 +21,8 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 
+import com.github.minemod.Logger;
+
 @SuppressWarnings("serial")
 public class OpenLaunchGuiMain extends JFrame implements ActionListener 
 {
@@ -29,14 +33,14 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
     private JScrollPane jScrollPane1;
     private JTextField jTextField1;
     private JTextField jTextField2;
-    private JTextPane jTextPane1;
+    private JEditorPane web;
     private JToggleButton console;
     public String VERSION = "0.0.1";
 	    
     public OpenLaunchGuiMain()
     {
     	initComponents();
-        this.setTitle("OpenLaunch " + RELEASE.DEV +" Version"+":"+VERSION);
+        this.setTitle("OpenLaunch " + RELEASE.DEV +" Version"+" : "+VERSION);
         this.setResizable(false);
     }
     public enum RELEASE
@@ -58,7 +62,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
         jTextField2 = new JTextField();
         jButton1 = new JButton();
         jScrollPane1 = new JScrollPane();
-        jTextPane1 = new JTextPane();
+        web = new JTextPane();
         jLabel1 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -67,6 +71,12 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 
         jPanel1.setBackground(new Color(102, 102, 102));
         jPanel1.setToolTipText("OpenLaunch Dev version");
+        web.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        try 
+        {
+			web.setPage("file:///C:/Users/Cammygames/Documents/Development/workspace/OpenLaunch/src/test.html");
+		} 
+        catch (IOException e) {e.printStackTrace();}
 
         console.setText("Show The Console");
         console.addActionListener(this);
@@ -77,10 +87,10 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 
         jButton1.setText("Download");
 
-        jTextPane1.setEditable(false);
-        jTextPane1.setBackground(new Color(102, 102, 102));
-        jTextPane1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-        jScrollPane1.setViewportView(jTextPane1);
+        web.setEditable(false);
+        web.setBackground(new Color(102, 102, 102));
+        web.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+        jScrollPane1.setViewportView(web);
 
         jLabel1.setIcon(new ImageIcon(getClass().getResource("/com/github/minemod/gui/res/CUSTOM_logo.png"))); 
         jLabel1.setText("jLabel1");
@@ -152,13 +162,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 		if(event.getSource() == console)
 		{
 			try {new Console().setVisible(true);}catch(Exception e){e.printStackTrace();}
-			this.addToConsole("Launching Console");
+			Logger.addToConsole("Launching Console");
 		}
-	}
-	
-    public void addToConsole(String msg)
-	{
-    	String content = Console.console.getText();
-    	 Console.console.setText(content + "\n"+ msg);
 	}
 }
