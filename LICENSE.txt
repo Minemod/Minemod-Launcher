@@ -1,0 +1,28 @@
+As authors/co-authors, you are required to agree to the following declarations and terms.
+ 
+This contract allows OpenLaucher to distribute the file(s) specified, under the following terms:
+ 
+Responsibilities and Maintenance
+By signing this, you are agreeing to allow OpenLauncher to use your software for distribution to client machines, and unrestricted distribution.
+You as an author must provide the compiled resources needed to run the software requested before signing this contract.
+We are allowed to distribute the file for 12 months. Although we do not guarantee the file will be available for download for the whole 12 month period.
+We reserve the right to remove the file at any point, for any given reason within the 12 month period.
+ 
+2. Profit, Donations and Money in general
+OpenLauncher is a non-profit project, the authors are required to provide their software for free. Authors may however provide a donation link(s) on their mod page. OpenLauncher takes and demands no money from mod authors.
+You agree not to demand money from OpenLauncher.
+ 
+General Housekeeping
+You will have access to see which mod authors and which mods are covered by this, and other versions of the Author/Launcher contract.
+Signing this contract confirms that you are acting under good intentions and want to better the experience of players using OpenLauncher.
+ 
+4. Distribution
+We (OpenLauncher) reserve the right to distribute the resources and software you provide to anyone, in any country. We do not guarantee a service to everyone.
+We may distribute your file in any quantity.
+ 
+5. Your Rights
+You as an author reserve the right to cease providing further software. We do, however reserve the right to keep distributing files signed under this contract.
+You will be given proper accreditation for the software you provide with links to your personal page(s) if wanted.
+We reserve the right to remove and edit information submitted on your profile at any given time.
+ 
+This contract will expire 12 months from the date we receive this contract, and the resources. We will not distribute any files until this is signed.
