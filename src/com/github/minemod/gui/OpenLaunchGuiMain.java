@@ -33,9 +33,10 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JTextField jTextField1;
-    private JTextField jTextField2;
+    private JTextField packCode;
     private JTextPane web;
     private JTextPane localPacks;
+    private final static String newline = "\n";
     
     
     public String VERSION = "0.0.1";
@@ -61,7 +62,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
         console = new JButton();
         jProgressBar1 = new JProgressBar();
         jTextField1 = new JTextField();
-        jTextField2 = new JTextField();
+        packCode = new JTextField();
         jButton1 = new JButton();
         jScrollPane1 = new JScrollPane();
         web = new JTextPane();
@@ -84,8 +85,8 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
         jTextField1.setEditable(false);
         jTextField1.setText("Eneter pack code below");
 
-        jTextField2.setText("Packcode here");
-
+        packCode.setText("Packcode here");
+        packCode.addActionListener(this);
         jButton1.setText("Download");
 
         web.setEditable(false);
@@ -135,7 +136,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
                     .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 484, GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(packCode, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
@@ -159,7 +160,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
                         .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(console, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(packCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addComponent(jProgressBar1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -189,7 +190,13 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 		if(event.getSource() == console)
 		{
 			try {new Console().setVisible(true);}catch(Exception e){e.printStackTrace();}
-			Logger.addToConsole("Launching Console");
+			Logger.addToConsole("Launching Console" + newline);
+		}
+		
+		if(event.getSource() == packCode)
+		{
+			  String text = packCode.getText();
+			  	Logger.addToConsole("Pack Code Entered : "+text + newline);
 		}
 	}
 }
