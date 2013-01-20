@@ -1,7 +1,8 @@
 package com.github.minemod.gui;
 
 import java.awt.Color;
-import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -19,7 +20,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
-public class OpenLaunchGuiMain extends JFrame
+public class OpenLaunchGuiMain extends JFrame implements ActionListener 
 {
     private JButton jButton1;
     private JLabel jLabel1;
@@ -29,20 +30,29 @@ public class OpenLaunchGuiMain extends JFrame
     private JTextField jTextField1;
     private JTextField jTextField2;
     private JTextPane jTextPane1;
-    private JToggleButton jToggleButton1;
+    private JToggleButton console;
+    public String VERSION = "0.0.1";
 	    
     public OpenLaunchGuiMain()
     {
     	initComponents();
-        this.setName("OpenLaunch Dev version");
+        this.setTitle("OpenLaunch " + RELEASE.DEV +" Version"+":"+VERSION);
         this.setResizable(false);
+    }
+    public enum RELEASE
+    {
+    	DEV,
+    	ALPHA,
+    	BETA,
+    	RELEASE,
+    	Patch
     }
     
     private void initComponents() 
     {
 
         jPanel1 = new JPanel();
-        jToggleButton1 = new JToggleButton();
+        console = new JToggleButton();
         jProgressBar1 = new JProgressBar();
         jTextField1 = new JTextField();
         jTextField2 = new JTextField();
@@ -58,8 +68,8 @@ public class OpenLaunchGuiMain extends JFrame
         jPanel1.setBackground(new Color(102, 102, 102));
         jPanel1.setToolTipText("OpenLaunch Dev version");
 
-        jToggleButton1.setText("Show The Console");
-
+        console.setText("Show The Console");
+        console.addActionListener(this);
         jTextField1.setEditable(false);
         jTextField1.setText("Eneter pack code below");
 
@@ -72,7 +82,7 @@ public class OpenLaunchGuiMain extends JFrame
         jTextPane1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
         jScrollPane1.setViewportView(jTextPane1);
 
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/com/github/minemod/gui/res/CUSTOM_logo.png"))); // NOI18N
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("/com/github/minemod/gui/res/CUSTOM_logo.png"))); 
         jLabel1.setText("jLabel1");
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
@@ -86,7 +96,7 @@ public class OpenLaunchGuiMain extends JFrame
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jProgressBar1, GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(console, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 484, GroupLayout.PREFERRED_SIZE)
@@ -107,7 +117,7 @@ public class OpenLaunchGuiMain extends JFrame
                         .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(console, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                     .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
@@ -135,4 +145,20 @@ public class OpenLaunchGuiMain extends JFrame
 
         pack();
     }
+
+	@Override
+	public void actionPerformed(ActionEvent event)
+	{
+		if(event.getSource() == console)
+		{
+			try {new Console().setVisible(true);}catch(Exception e){e.printStackTrace();}
+			this.addToConsole("Launching Console");
+		}
+	}
+	
+    public void addToConsole(String msg)
+	{
+    	String content = Console.console.getText();
+    	 Console.console.setText(content + "\n"+ msg);
+	}
 }
