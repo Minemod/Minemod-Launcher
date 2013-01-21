@@ -10,9 +10,9 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import com.github.minemod.Logger;
 import com.github.minemod.NetWork;
 import com.github.minemod.gui.OpenLaunchGuiMain;
+import com.github.minemod.logs.Logger;
 
 public class FileManager 
 {
@@ -190,6 +190,10 @@ public class FileManager
 	        	{
 	        		Logger.addToConsole("Backing up mod List\n");
 	        	}
+	        	else 
+	        	{
+	        		Logger.addToLogs("INFO", "Backing up mod List");
+	        	}
 	            try
 	            {
 	                if (oldList.exists())
@@ -202,6 +206,12 @@ public class FileManager
 	                	{
 	                		Logger.addToConsole("Downloading mod List \n");
 	                	}
+		        		else 
+		        		{
+		        			Logger.addToLogs("INFO", "Downloading mod List");
+		        		}
+	                
+	                
 	                    File NmodList = Downloader.downloadFromUrl(updateURl, FileManager.updaterDir, "/test.html");
 	                    if (NmodList != null && NmodList.exists())
 	                    {
@@ -210,6 +220,10 @@ public class FileManager
 	        	        	{
 	        	        		Logger.addToConsole("\n" + "Downloaded new list \n");
 	        	        	}
+			        		else 
+			        		{
+			        			Logger.addToLogs("INFO", "Downloading new List");
+			        		}
 	                        return true;
 	                    }
 	                    else
@@ -219,6 +233,11 @@ public class FileManager
 	        	        		Logger.addToConsole("Failed to get list \n");
 	        	        		Logger.addToConsole("restoring old list \n");
 	        	        	}
+			        		else 
+			        		{
+			        			Logger.addToLogs("WARNING", "Failed to get list");
+			        			Logger.addToLogs("WARNING", "restoring old list");
+			        		}
 	                        oldList.renameTo(new File(FileManager.updaterDir + "/test.html"));
 	                    }
 	                }

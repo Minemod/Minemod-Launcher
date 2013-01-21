@@ -18,14 +18,14 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 
-import com.github.minemod.Logger;
 import com.github.minemod.file.FileManager;
+import com.github.minemod.logs.Logger;
 
 @SuppressWarnings("serial")
 public class OpenLaunchGuiMain extends JFrame implements ActionListener 
 {
     public JButton console;
-    public JButton jButton1;
+    public JButton download;
     public JLabel jLabel1;
     public JPanel jPanel1;
     public JProgressBar jProgressBar1;
@@ -63,7 +63,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
         jProgressBar1 = new JProgressBar();
         jTextField1 = new JTextField();
         packCode = new JTextField();
-        jButton1 = new JButton();
+        download = new JButton();
         jScrollPane1 = new JScrollPane();
         web = new JTextPane();
         jLabel1 = new JLabel();
@@ -87,8 +87,8 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 
         packCode.setText("Packcode here");
         packCode.addActionListener(this);
-        jButton1.setText("Download");
-        jButton1.addActionListener(this);
+        download.setText("Download");
+        download.addActionListener(this);
 
         web.setEditable(false);
         web.setBackground(new Color(102, 102, 102));
@@ -140,7 +140,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
                             .addComponent(packCode, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(download, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 484, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -167,7 +167,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
                         .addGap(348, 348, 348)
-                        .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(download, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))))
         );
 
@@ -208,6 +208,10 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 			  	FileManager.modpackURl = "https://dl.dropbox.com/u/" + text + "/modpack.zip";
 			  	FileManager.downloadmodpack();
 
+		}
+		if (event.getSource() == download)
+		{
+			FileManager.updateList();
 		}
 	}
 }

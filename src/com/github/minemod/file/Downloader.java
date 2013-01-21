@@ -7,8 +7,8 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Calendar;
 
-import com.github.minemod.Logger;
 import com.github.minemod.gui.OpenLaunchGuiMain;
+import com.github.minemod.logs.Logger;
 
 public class Downloader 
 {
