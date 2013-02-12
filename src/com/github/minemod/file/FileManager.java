@@ -19,8 +19,6 @@ public class FileManager
     	public static String code = OpenLaunchGuiMain.packCode.getText();
     	
 		public static String dir = getDir();
-	    public static String modsDir = dir + "/mods";
-	    public static String coremodsDir = dir + "/coremods";
 	    public static String updaterDir = dir + "/OpenLaunch";
 	    public static String modTemp = updaterDir + "/mods";
 	    public static String coremodTemp = updaterDir + "/coremods";
@@ -42,144 +40,6 @@ public class FileManager
 
 	    
 	    public static boolean inMC = false;
-
-	    /**
-	     * looks at what mods are installed by file name
-	     */
-	    public static void getInstalledMods()
-	    {
-	        try
-	        {
-	            installedMods = new ArrayList<File>();
-	            installedMods.addAll(getFileList(modsDir, ".zip"));
-	            installedMods.addAll(getFileList(modsDir, ".jar"));
-	            errors.add(installedMods.size() + " Installed mods");
-
-	            installedCoreMods = new ArrayList<File>();
-	            installedCoreMods.addAll(getFileList(coremodsDir, ".zip"));
-	            installedCoreMods.addAll(getFileList(coremodsDir, ".jar"));
-	            errors.add(installedMods.size() + " Installed coremods");
-	        }
-	        catch (Exception e)
-	        {
-	            errors.add("error getting mods installed");
-	            e.printStackTrace();
-	        }
-	    }
-	    
-	    public static void getStoredMods()
-	    {
-	        modsStored.addAll(getFileList(modTemp, ".zip"));
-	        modsStored.addAll(getFileList(modTemp, ".jar"));
-	        modsStored.addAll(getFileList(coremodTemp, ".zip"));
-	        modsStored.addAll(getFileList(coremodTemp, ".jar"));
-	        errors.add(modsStored.size() + " Mods Stored for use");
-	    }
-
-	    /**
-	     * Checks the main file system for all folders also does basic check to see
-	     * if it can update
-	     * 
-	     * @return
-	     */
-	    public static boolean rootFileCheck()
-	    {
-	        // mods folder
-	        if (!folderCreator(dir, "mods"))
-	        {
-	            errors.add("Missing mods folder");
-	            return false;
-	        }
-	        // core mods folder
-	        if (!folderCreator(dir, "coremods"))
-	        {
-	            errors.add("Missing coremods folder");
-	            return false;
-	        }
-	        // updater folder
-	        if (!folderCreator(dir, "Updater"))
-	        {
-	            errors.add("Missing Update folder");
-	            return false;
-	        }
-	        FileManager.getInstalledMods();
-	        // checks for updates/mods folder which is used to temp store mods
-	        if (!folderCreator(dir + "/Updater/", "mods"))
-	        {
-	            errors.add("Missing update/mods folder");
-	            return false;
-	        }
-	        if (!folderCreator(dir + "/Updater/", "coremods"))
-	        {
-	            errors.add("Missing update/coremods folder");
-	            return false;
-	        }
-	        FileManager.getStoredMods();
-	        // checks for updates/jar folder which stores minecraft.jar backup
-	        if (!folderCreator(updaterDir, "jars"))
-	        {
-	            errors.add("Missing Update/jars folder");
-	        }
-	        else
-	        {
-	            File file = new File(updaterDir + "/jars/minecraft.jar");
-	            if (!file.exists())
-	            {
-	                errors.add("Missing minecraft.jar Launcher");
-	                // TODO add code to copy or download minecraft.jar
-	            }
-	            else
-	            {
-	                mc = file;
-	            }
-
-	        }
-	        // checks for update/jarMods folder which stores mod that are
-	        // injected into the client
-	        if (!folderCreator(dir + "/Updater/", "jarMods"))
-	        {
-	            errors.add("Missing Update/jarMods folder");
-	        }
-	        else
-	        {
-	            jarMods = getFileList(updaterDir + "jarMods", ".zip");
-	            errors.add(jarMods.size() + " jarMods Stored for use");
-	        }
-
-	        if (!folderCreator(dir, "bin"))
-	        {
-	            errors.add("Missing bin folder");
-	            return false;
-	        }
-	        else
-	        {
-	            File minecraft = new File(dir + "/bin/minecraft.jar");
-	            if (!minecraft.exists())
-	            {
-	                errors.add("Can't update without minecraft.jar");
-	                JOptionPane.showMessageDialog(null, "Missing minecraft.jar.\n Run minecraft once");
-	            }
-	            else
-	            {
-	                currentMc = minecraft;
-	                File met = new File(minecraft.getAbsolutePath() + "/META-INF/");
-	                if (met.exists() && mc == null)
-	                {
-	                    try
-	                    {
-	                        copyFile(minecraft, new File(updaterDir + "/jars"));
-	                        errors.add(" Backing up minecraft.jar");
-	                    }
-	                    catch (IOException e)
-	                    {
-	                        e.printStackTrace();
-	                    }
-	                }
-	            }
-	        }
-	        errors.add("Reached end of File Check");
-	        return true;
-	    }
 
 	    public static boolean updateList()
 	    {
@@ -265,72 +125,6 @@ public class FileManager
 	        }
 	        return false;
 	    }
-
-	    public static boolean downloadmodpack()
-	    {
-        	if (OpenLaunchGuiMain.consoleOpen == true )
-        	{
-    			Logger.addToConsole(modpackURl);
-        	}
-	        // Download mod list
-	        if (modpack.exists())
-	        {
-	        	if (OpenLaunchGuiMain.consoleOpen == true )
-	        	{
-	        		Logger.addToConsole("Backing up mod pack" + "\n");
-	        	}
-	            try
-	            {
-	                Boolean cc = FileManager.copyFile(modpack, new File(modpack + ".backup"));
-	                if (cc)
-	                {   if (OpenLaunchGuiMain.consoleOpen == true )
-	                	{
-	                		Logger.addToConsole("Downloading mod pack \n");
-	                	}
-	                    File NmodList = Downloader.downloadFromUrl(modpackURl, FileManager.updaterDir+"/Modpacks", "/modpack.zip");
-	                    if (NmodList != null && NmodList.exists())
-	                    {
-	                        modList = NmodList;
-	        	        	if (OpenLaunchGuiMain.consoleOpen == true )
-	        	        	{
-	        	        		Logger.addToConsole("\n" + "Downloaded new list \n");
-	        	        	}
-	                        return true;
-	                    }
-	                    else
-	                    {
-	        	        	if (OpenLaunchGuiMain.consoleOpen == true )
-	        	        	{
-	        	        		Logger.addToConsole("Failed to get list \n");
-	        	        		Logger.addToConsole("restoring old list \n");
-	        	        	}
-	                    }
-	                }
-	            }
-	            catch (IOException e)
-	            {
-	                e.printStackTrace();
-	            }
-	        }
-	        else
-	        {
-	        	if (OpenLaunchGuiMain.consoleOpen == true )
-	        	{
-	        		Logger.addToConsole("No Mod List");
-	        	}
-	            File NmodList = Downloader.downloadFromUrl(modpackURl, FileManager.updaterDir + "/Modpacks", "/modpack.zip");
-	            if (NmodList != null && NmodList.exists())
-	            {
-		        	if (OpenLaunchGuiMain.consoleOpen == true )
-		        	{
-		        		Logger.addToConsole("Downloaded Mod List");
-		        	}
-	                return true;
-	            }
-	        }
-	        return false;
-	    }
-
 	    
 	    /**
 	     * Used to see if a fileExists
@@ -405,7 +199,8 @@ public class FileManager
 	     * @param destFile
 	     * @throws IOException
 	     */
-	    public static boolean copyFile(File sourceFile, File destFile) throws IOException
+	    @SuppressWarnings("resource")
+		public static boolean copyFile(File sourceFile, File destFile) throws IOException
 	    {
 	        if (!sourceFile.exists()) { return false; }
 	        if (!destFile.exists())

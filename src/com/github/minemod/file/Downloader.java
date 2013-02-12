@@ -16,7 +16,10 @@ public class Downloader
 	{
 		try 
 		{
-	    	if(access == "url"){ return downloadFromUrl(url, loc, file);}
+	    	if(access == "url")
+	    	{ 
+	    		return downloadFromUrl(url, loc, file);
+	    	}
 			return downloadFromUrl(url, loc, file);
 		} 
 		catch (Exception e) 
@@ -30,7 +33,7 @@ public class Downloader
 	 * @param file - file name
 	 * @return
 	 */
-	public static File downloadFromUrl(String url,String loc, String file)
+	public static File downloadFromUrl(String url, String loc , String file)
 	{
 		try
 		{
@@ -66,7 +69,9 @@ public class Downloader
 		    	}
 		    }
 
-		}catch(Exception e){e.printStackTrace();}
+		}
+		catch(Exception e)
+			{e.printStackTrace();}
 		return null;
 
 	}

@@ -19,6 +19,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 
 import com.github.minemod.file.FileManager;
+import com.github.minemod.file.PackDownloader;
 import com.github.minemod.logs.Logger;
 
 @SuppressWarnings("serial")
@@ -195,23 +196,26 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 			consoleOpen = true;
 		}
 		
-		if(event.getSource() == packCode)
-		{
-			 	String text = packCode.getText();
-		      	if (OpenLaunchGuiMain.consoleOpen == true )
-	        	{
-		      		Logger.addToConsole("Pack Code Entered : "+ text + newline);
-			  		Logger.addToConsole(FileManager.modpackURl + newline);
-	        	}
-			  	
-			  	//FileManager.modpackURl = "http://dev.minemod.org/pack/" + text + "/modpack.zip" ;
-			  	FileManager.modpackURl = "https://dl.dropbox.com/u/" + text + "/modpack.zip";
-			  	FileManager.downloadmodpack();
 
-		}
+		
 		if (event.getSource() == download)
 		{
-			FileManager.updateList();
+
+			String code = packCode.getText();
+	      	System.out.println("[DEBUG] : "+ code);
+			
+			if  (packCode.getText() != null)
+			{
+		      	if (OpenLaunchGuiMain.consoleOpen == true )
+	        	{
+		      		Logger.addToConsole("Pack Code Entered : "+ code + newline);
+	        	}
+			  	
+		      	PackDownloader.downLoadPack(code);
+		      	System.out.println("[DEBUG] : "+ code);
+			}
+		
+			
 		}
 	}
 }
