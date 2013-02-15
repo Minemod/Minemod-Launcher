@@ -41,7 +41,7 @@ public class Downloader
 			double timeI = cal.getTimeInMillis();
         	if (OpenLaunchGuiMain.consoleOpen == true )
         	{
-        		Logger.addToConsole("\n Downloading "+ file);
+        		Logger.addToConsole("INFO" ,"\n Downloading "+ file);
         	}
 
 			URL website = new URL(url);
@@ -57,7 +57,7 @@ public class Downloader
 		    {
 	        	if (OpenLaunchGuiMain.consoleOpen == true )
 	        	{
-	        			Logger.addToConsole("\n" + file +" Downloaded in "+ timeT+"mills");
+	        		Logger.addToConsole("INFO" ,"\n" + file +" Downloaded in "+ timeT+"mills");
 	        	}
 		    return dFile;
 		    }
@@ -65,7 +65,7 @@ public class Downloader
 		    {        	
 		    	if (OpenLaunchGuiMain.consoleOpen == true )
 		    	{
-		    		Logger.addToConsole("\n" + file +" failed to download");
+		    		Logger.addToConsole("ERROR" ,"\n" + file +" failed to download");
 		    	}
 		    }
 

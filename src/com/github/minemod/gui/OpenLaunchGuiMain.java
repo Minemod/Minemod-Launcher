@@ -192,7 +192,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 		if(event.getSource() == console)
 		{
 			try {new Console().setVisible(true);}catch(Exception e){e.printStackTrace();}
-			Logger.addToConsole("Launching Console" + newline);
+			Logger.addToConsole("INFO" , "Launching Console" + newline);
 			consoleOpen = true;
 		}
 		
@@ -208,7 +208,7 @@ public class OpenLaunchGuiMain extends JFrame implements ActionListener
 			{
 		      	if (OpenLaunchGuiMain.consoleOpen == true )
 	        	{
-		      		Logger.addToConsole("Pack Code Entered : "+ code + newline);
+		      		Logger.addToConsole("INFO" ,"Pack Code Entered : "+ code + newline);
 	        	}
 			  	
 		      	PackDownloader.downLoadPack(code);

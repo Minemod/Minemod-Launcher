@@ -1,19 +1,16 @@
 package com.github.minemod.logs;
 
-import java.io.BufferedReader;
+//import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import com.github.minemod.OpenLaunch;
 import com.github.minemod.file.FileManager;
 import com.github.minemod.gui.Console;
 
 public class Logger 
 {
-	private static BufferedReader logbufferR;
+	//private static BufferedReader logbufferR;
 	
 	private static BufferedWriter logbufferW;
 		
@@ -21,12 +18,18 @@ public class Logger
 	
 	public static File logs = new File(FileManager.updaterDir + "/Logs/Log-LATEST.txt");
 	
-    public static void addToConsole(String msg)
+	
+    /**
+     * @param importance the [ERROR] or [WARNING]
+     * @param msg the msg to be added after the importance
+     */
+    public static void addToConsole(String importance , String msg)
 	{
-    	String content = Console.console.getText();
-    	 Console.console.setText(content + "\n"+ msg);
+    		String content = Console.console.getText();
+    			Console.console.setText(content + "["+ importance +"] : " + msg + "\n");
+    			//Console.console.setText(content + "\n");
 	}
-
+    
     public static void reload()
     {
     	try
@@ -41,7 +44,7 @@ public class Logger
      * @param importance the [ERROR] or [WARNING]
      * @param msg the msg to be added after the importance
      */
-    public static void addToLogs(String importance,String msg) 
+    public static void addToLogs(String importance , String msg) 
     {
 		try 
 		{

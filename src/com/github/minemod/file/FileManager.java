@@ -48,7 +48,7 @@ public class FileManager
 	        {
 	        	if (OpenLaunchGuiMain.consoleOpen == true )
 	        	{
-	        		Logger.addToConsole("Backing up mod List\n");
+	        		Logger.addToConsole("INFO" ,"Backing up mod List\n");
 	        	}
 	        	else 
 	        	{
@@ -58,13 +58,13 @@ public class FileManager
 	            {
 	                if (oldList.exists())
 	                {
-	                    FileManager.deleteFile(FileManager.updaterDir, "/test.html.backup", false);
+	                    FileHelper.deleteFile(FileManager.updaterDir, "/test.html.backup", false);
 	                }
-	                Boolean cc = FileManager.copyFile(modList, new File(modList + ".backup"));
+	                Boolean cc = FileHelper.copyFile(modList, new File(modList + ".backup"));
 	                if (cc)
 	                {   if (OpenLaunchGuiMain.consoleOpen == true )
 	                	{
-	                		Logger.addToConsole("Downloading mod List \n");
+	                		Logger.addToConsole("INFO" ,"Downloading mod List \n");
 	                	}
 		        		else 
 		        		{
@@ -78,7 +78,7 @@ public class FileManager
 	                        modList = NmodList;
 	        	        	if (OpenLaunchGuiMain.consoleOpen == true )
 	        	        	{
-	        	        		Logger.addToConsole("\n" + "Downloaded new list \n");
+	        	        		Logger.addToConsole("INFO" ,"\n" + "Downloaded new list \n");
 	        	        	}
 			        		else 
 			        		{
@@ -90,8 +90,8 @@ public class FileManager
 	                    {
 	        	        	if (OpenLaunchGuiMain.consoleOpen == true )
 	        	        	{
-	        	        		Logger.addToConsole("Failed to get list \n");
-	        	        		Logger.addToConsole("restoring old list \n");
+	        	        		Logger.addToConsole("ERROR" , "Failed to get list \n");
+	        	        		Logger.addToConsole("INFO" ,  "restoring old list \n");
 	        	        	}
 			        		else 
 			        		{
@@ -111,14 +111,14 @@ public class FileManager
 	        {
 	        	if (OpenLaunchGuiMain.consoleOpen == true )
 	        	{
-	        		Logger.addToConsole("No Mod List");
+	        		Logger.addToConsole("INFO" ,"No Mod List");
 	        	}
 	            File NmodList = Downloader.downloadFromUrl(updateURl, FileManager.updaterDir, "/test.html");
 	            if (NmodList != null && NmodList.exists())
 	            {
 		        	if (OpenLaunchGuiMain.consoleOpen == true )
 		        	{
-		        		Logger.addToConsole("Downloaded Mod List");
+		        		Logger.addToConsole("INFO" ,"Downloaded Mod List");
 		        	}
 	                return true;
 	            }
@@ -126,103 +126,6 @@ public class FileManager
 	        return false;
 	    }
 	    
-	    /**
-	     * Used to see if a fileExists
-	     * 
-	     * @param loc
-	     *            - director location
-	     * @param file
-	     *            - file too look fire
-	     * @return true if it is found
-	     */
-	    public static File fileExist(String loc, String file)
-	    {
-	        if (loc == null)
-	        {
-	            loc = dir;
-	        }
-	        if (file == null) { return null; }
-	        if (loc != null && file != null)
-	        {
-	            String sFile = loc + file;
-	            File aFile = new File(sFile);
-	            if (aFile.exists()) { return aFile; }
-	        }
-	        return null;
-	    }
-
-	    /**
-	     * Used to manage file deletion with hook for backing up the file
-	     * 
-	     * @param loc
-	     *            - location to look for file
-	     * @param file
-	     *            - file too look for and delete
-	     * @param backup
-	     *            should backup
-	     * @return true if the file was deleted
-	     */
-	    public static boolean deleteFile(String loc, String file, boolean backup)
-	    {
-	        File del = fileExist(loc, file);
-	        if (del != null)
-	        {
-	            if (!backup)
-	            {
-	                return del.delete();
-	            }
-	            else
-	            {
-	                File bac = fileExist(modTemp, file);
-	                if (bac == null)
-	                {
-	                    try
-	                    {
-	                        boolean c = copyFile(del, bac);
-	                        if (c) { return del.delete(); }
-	                    }
-	                    catch (IOException e)
-	                    {
-
-	                        e.printStackTrace();
-	                    }
-	                }
-	            }
-	        }
-	        return false;
-	    }
-
-	    /**
-	     * Copies a file from one spot to another
-	     * 
-	     * @param sourceFile
-	     * @param destFile
-	     * @throws IOException
-	     */
-	    @SuppressWarnings("resource")
-		public static boolean copyFile(File sourceFile, File destFile) throws IOException
-	    {
-	        if (!sourceFile.exists()) { return false; }
-	        if (!destFile.exists())
-	        {
-	            destFile.createNewFile();
-	        }
-	        FileChannel source = null;
-	        FileChannel destination = null;
-	        source = new FileInputStream(sourceFile).getChannel();
-	        destination = new FileOutputStream(destFile).getChannel();
-	        if (destination != null && source != null)
-	        {
-	            destination.transferFrom(source, 0, source.size());
-	            source.close();
-	            destination.close();
-	            return true;
-	        }
-	        source.close();
-	        destination.close();
-	        return false;
-
-	    }
 
 	    public static List<File> getFileList(String loc, String fileEnd)
 	    {
@@ -261,6 +164,10 @@ public class FileManager
 	    {
 	        final File loader = new File(NetWork.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 	        System.out.print("Working directory " + loader.getParent() + "\n");
+        	if (OpenLaunchGuiMain.consoleOpen == true )
+        	{
+        		Logger.addToConsole("INFO" ,"Working directory : " + loader.getParent() + "\n");
+        	}
 	        return loader.getParent();
 	    }
 
