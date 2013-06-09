@@ -22,11 +22,12 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
 import org.minemod.dev.network.NetworkManager;
+import org.minemod.dev.network.file.PackDownloader;
 
 public class Launcher_Main extends JFrame implements ActionListener
 {
 	
-	private JTextArea console;
+	public static JTextArea console;
 	private JLabel jLabel1;
 	private JPanel jPanel1;
 	private JPanel jPanel3;
@@ -34,7 +35,7 @@ public class Launcher_Main extends JFrame implements ActionListener
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
 	private JButton launch;
-	private JTextField packCode;
+	public static JTextField packCode;
 	private static JPasswordField password;
 	private JPanel twitterFeed;
 	private JButton update;
@@ -331,7 +332,8 @@ public class Launcher_Main extends JFrame implements ActionListener
 	{
 		if (event.getSource() == launch)
 		{
-			NetworkManager.Login();
+			//NetworkManager.Login();
+			PackDownloader.downLoadPack(packCode.getText());
 		}
 	}
 	
