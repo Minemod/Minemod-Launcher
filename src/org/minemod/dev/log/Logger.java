@@ -18,7 +18,7 @@ public class Logger
 	
 	
     /**
-     * @param importance the [ERROR] or [WARNING]
+     * @param importance the [ERROR] or [WARNING] or [INFO]
      * @param msg the msg to be added after the importance
      */
     public static void addToConsole(String importance , String msg)
@@ -37,11 +37,11 @@ public class Logger
 		catch (Exception e) {e.printStackTrace();}
 
     }
-    
+        
     /**
-     * @param importance the [ERROR] or [WARNING]
+     * @param importance the [ERROR] or [WARNING] or [INFO]
      * @param msg the msg to be added after the importance
-    
+    */
     public static void addToLogs(String importance , String msg) 
     {
 		try 
@@ -72,6 +72,6 @@ public class Logger
 		{
 			e.printStackTrace();
 		}
-    } */
+    } 
     
 }
