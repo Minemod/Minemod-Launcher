@@ -1,0 +1,34 @@
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 0 enUS to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 1 cyGB to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 2 daDK to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 3 deDE to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 4 esES to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 5 frFR to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 6 itIT to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 7 maHU to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 8 nlNL to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 9 ptBR to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 10 ptPT to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 11 ruRU to options pane
+[13:19:55] [INFO] OptionsPane.<init>:156: [i18n] Added 12 svSE to options pane
+[13:19:55] [INFO] I18N.setLocale:142: [i18n] enUS English language file loaded!
+[13:19:56] [INFO] ModpackLoader.run:57: Loading modpack information for modpacks.xml...
+[13:19:56] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 1
+[13:19:56] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 2
+[13:19:56] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 3
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 4
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 5
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 6
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 7
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 8
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 9
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 10
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 11
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 12
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 13
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 14
+[13:19:57] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 15
+[13:19:58] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 16
+[13:19:58] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 17
+[13:19:58] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 18
+[13:19:58] [INFO] ModpacksPane.onModPackAdded:298: Adding pack 19
