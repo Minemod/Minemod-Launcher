@@ -48,7 +48,6 @@ import net.ftb.gui.LaunchFrame;
 import net.ftb.locale.I18N;
 import net.ftb.util.OSUtils;
 
-@SuppressWarnings("all")
 public class EditModPackDialog extends JDialog {
 	private JTabbedPane tabbedPane;
 

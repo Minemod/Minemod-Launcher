@@ -41,7 +41,6 @@ import net.ftb.locale.I18N;
 import net.ftb.log.Logger;
 import net.ftb.util.DownloadUtils;
 
-@SuppressWarnings("all")
 public class AdvancedOptionsDialog extends JDialog {
 	private JButton exit;
 	private JLabel downloadLocationLbl;

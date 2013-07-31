@@ -70,7 +70,7 @@ public class NewsPane extends JPanel implements ILauncherPane {
 	@Override
 	public void onVisible() {
 		try {
-			news.setPage("http://launcher.feed-the-beast.com/news.php");
+			news.setPage("http://uk1.minemod.org/launcher/news.html");
 			Settings.getSettings().setNewsDate();
 			Settings.getSettings().save();
 			LaunchFrame.getInstance().setNewsIcon();

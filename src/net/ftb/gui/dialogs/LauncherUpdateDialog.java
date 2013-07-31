@@ -33,7 +33,6 @@ import net.ftb.locale.I18N;
 import net.ftb.updater.UpdateChecker;
 import net.ftb.util.OSUtils;
 
-@SuppressWarnings("all")
 public class LauncherUpdateDialog extends JDialog {
 	private JLabel messageLbl;
 	private JLabel updateLbl;

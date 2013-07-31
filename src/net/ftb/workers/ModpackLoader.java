@@ -104,8 +104,5 @@ public class ModpackLoader extends Thread {
 				} catch (IOException e) { }
 			}
 		}
-		if(!ModpacksPane.loaded) {
-			ModpacksPane.loaded = true;
-		}
 	}
 }

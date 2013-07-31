@@ -293,7 +293,9 @@ public class ModPack {
 	 * @return - the modpacks URL
 	 */
 	public String getUrl() {
+		System.out.println("THIS IS THE LINK FOR THE PACK : " + url);
 		return url;
+		
 	}
 
 	/**

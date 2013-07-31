@@ -31,7 +31,6 @@ import net.ftb.log.Logger;
 import net.ftb.util.CryptoUtils;
 import net.ftb.util.OSUtils;
 
-@SuppressWarnings("all")
 public class UserManager {
 	public final static ArrayList<User> _users = new ArrayList<User>();
 	private File _file;

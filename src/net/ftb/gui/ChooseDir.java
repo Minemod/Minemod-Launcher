@@ -32,7 +32,7 @@ import net.ftb.gui.panes.OptionsPane;
 import net.ftb.log.Logger;
 import net.ftb.util.ErrorUtils;
 import net.ftb.util.FileUtils;
-@SuppressWarnings("all")
+
 public class ChooseDir extends JFrame implements ActionListener {
 	private OptionsPane optionsPane;
 	private EditModPackDialog editMPD;

@@ -35,7 +35,6 @@ import net.ftb.gui.LaunchFrame;
 import net.ftb.gui.panes.ModpacksPane;
 import net.ftb.locale.I18N;
 
-@SuppressWarnings("all")
 public class ModPackFilterDialog extends JDialog {
 	private JLabel originLbl;
 	private JComboBox origin;

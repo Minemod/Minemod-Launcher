@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.Locale;
 import javax.accessibility.*;
 import javax.swing.Icon;
-@SuppressWarnings("all")
+
 public class ImageAndTextIcon implements Icon {
 
 	/*

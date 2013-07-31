@@ -95,15 +95,13 @@ import net.ftb.util.TrackerUtils;
 import net.ftb.workers.GameUpdateWorker;
 import net.ftb.workers.LoginWorker;
 
-@SuppressWarnings("all")
+@SuppressWarnings("serial")
 public class LaunchFrame extends JFrame {
 	private LoginResponse RESPONSE;
 	private NewsPane newsPane;
 	public static JPanel panel;
 	private JPanel footer = new JPanel();
-	private JLabel footerLogo = new JLabel(new ImageIcon(this.getClass().getResource("/image/logo_ftb.png")));
-	private JLabel footerCreeper = new JLabel(new ImageIcon(this.getClass().getResource("/image/logo_creeperHost.png")));
-	private JButton launch = new JButton(), edit = new JButton(), donate = new JButton(), serverbutton = new JButton(), mapInstall = new JButton(), serverMap = new JButton(), tpInstall = new JButton();
+	private JButton launch = new JButton(), edit = new JButton(), serverbutton = new JButton();
 
 	private static String[] dropdown_ = {"Select Profile", "Create Profile"};
 	private static JComboBox users;
@@ -129,9 +127,7 @@ public class LaunchFrame extends JFrame {
 	protected enum Panes {
 		NEWS,
 		OPTIONS,
-		MODPACK,
-		MAPS,
-		TEXTURE
+		MODPACK
 	}
 
 	/**
@@ -142,8 +138,8 @@ public class LaunchFrame extends JFrame {
 		tracker.setEnabled(true);
 		TrackerUtils.sendPageView("net/ftb/gui/LaunchFrame.java", "Launcher Start v" + version);
 
-		if(new File(Settings.getSettings().getInstallPath(), "FTBLauncherLog.txt").exists()) {
-			new File(Settings.getSettings().getInstallPath(), "FTBLauncherLog.txt").delete();
+		if(new File(Settings.getSettings().getInstallPath(), "MinemodLauncherLog.txt").exists()) {
+			new File(Settings.getSettings().getInstallPath(), "MinemodLauncherLog.txt").delete();
 		}
 
 		if(new File(Settings.getSettings().getInstallPath(), "MinecraftLog.txt").exists()) {
@@ -153,7 +149,7 @@ public class LaunchFrame extends JFrame {
 		DownloadUtils thread = new DownloadUtils();
 		thread.start();
 		
-		Logger.logInfo("FTBLaunch starting up (version "+ version + ")");
+		Logger.logInfo("MinemodLaunch starting up (version "+ version + ")");
 		Logger.logInfo("Java version: "+System.getProperty("java.version"));
 		Logger.logInfo("Java vendor: "+System.getProperty("java.vendor"));
 		Logger.logInfo("Java home: "+System.getProperty("java.home"));
@@ -221,6 +217,12 @@ public class LaunchFrame extends JFrame {
 						osw.write("CWW256" + System.getProperty("line.separator"));
 						osw.write("Lathanael" + System.getProperty("line.separator"));
 						osw.write("Watchful11" + System.getProperty("line.separator"));
+						osw.write("-------------------------------" + System.getProperty("line.separator"));
+						osw.write("Minemod Launcher and Modpack Credits " + System.getProperty("line.separator"));
+						osw.write("-------------------------------" + System.getProperty("line.separator"));
+						osw.write("Launcher Developers:" + System.getProperty("line.separator"));
+						osw.write("cammygames" + System.getProperty("line.separator"));
+						osw.write("louiskw" + System.getProperty("line.separator"));
 						
 						osw.flush();
 						
@@ -252,12 +254,12 @@ public class LaunchFrame extends JFrame {
 
 				ModPack.addListener(frame.modPacksPane);
 				ModPack.loadXml(getXmls());
-
-				UpdateChecker updateChecker = new UpdateChecker(buildNumber);
-				if(updateChecker.shouldUpdate()) {
-					LauncherUpdateDialog p = new LauncherUpdateDialog(updateChecker);
-					p.setVisible(true);
-				}
+				
+				//UpdateChecker updateChecker = new UpdateChecker(buildNumber);
+				//if(updateChecker.shouldUpdate()) {
+				//	LauncherUpdateDialog p = new LauncherUpdateDialog(updateChecker);
+				//	p.setVisible(true);
+				//}
 			}
 		});
 	}
@@ -268,7 +270,7 @@ public class LaunchFrame extends JFrame {
 	public LaunchFrame(final int tab) {
 		setFont(new Font("a_FuturaOrto", Font.PLAIN, 12));
 		setResizable(false);
-		setTitle("Feed the Beast Launcher v" + version);
+		setTitle("Minemod Launcher v" + version);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/logo_ftb.png")));
 
 		panel = new JPanel();
@@ -289,25 +291,6 @@ public class LaunchFrame extends JFrame {
 		panel.add(footer);
 		setContentPane(panel);
 
-		//Footer
-		footerLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		footerLogo.setBounds(20, 20, 42, 42);
-		footerLogo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent event) {
-				OSUtils.browse("http://www.feed-the-beast.com");
-			}
-		});
-
-		footerCreeper.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		footerCreeper.setBounds(72, 20, 132, 42);
-		footerCreeper.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent event) {
-				OSUtils.browse("http://www.creeperhost.net/aff.php?aff=293");
-			}
-		});
-
 		dropdown_[0] = I18N.getLocaleString("PROFILE_SELECT");
 		dropdown_[1] = I18N.getLocaleString("PROFILE_CREATE");
 
@@ -320,16 +303,6 @@ public class LaunchFrame extends JFrame {
 				}
 			}
 		}
-
-		donate = new JButton(I18N.getLocaleString("DONATE_BUTTON"));
-		donate.setBounds(390, 20, 80, 30);
-		donate.setEnabled(false);
-		donate.setToolTipText("Coming Soon...");
-		donate.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 
 		users.setBounds(550, 20, 150, 30);
 		users.addActionListener(new ActionListener() {
@@ -393,12 +366,8 @@ public class LaunchFrame extends JFrame {
 
 		footer.add(edit);
 		footer.add(users);
-		footer.add(footerLogo);
-		footer.add(footerCreeper);
 		footer.add(launch);
-		footer.add(donate);
 		footer.add(serverbutton);
-		footer.add(serverMap);
 
 		newsPane = new NewsPane();
 		modPacksPane = new ModpacksPane();
@@ -428,12 +397,7 @@ public class LaunchFrame extends JFrame {
 	}
 
 	public void setNewsIcon() {
-		int i = getUnreadNews();
-		if(i > 0 && i < 100) {
-			tabbedPane.setIconAt(0, new ImageAndTextIcon(this.getClass().getResource("/image/tabs/news_unread_" + Integer.toString(i).length() + ".png"), Integer.toString(i)));
-		} else {
 			tabbedPane.setIconAt(0, new ImageIcon(this.getClass().getResource("/image/tabs/news.png")));
-		}
 	}
 
 	/**
@@ -456,8 +420,6 @@ public class LaunchFrame extends JFrame {
 		tabbedPane.setIconAt(0, new ImageIcon(this.getClass().getResource("/image/tabs/news.png")));
 		tabbedPane.setEnabledAt(1, false);
 		tabbedPane.setEnabledAt(2, false);
-		tabbedPane.setEnabledAt(3, false);
-		tabbedPane.setEnabledAt(4, false);
 		tabbedPane.getSelectedComponent().setEnabled(false);
 
 		launch.setEnabled(false);
@@ -733,8 +695,6 @@ public class LaunchFrame extends JFrame {
 		setNewsIcon();
 		tabbedPane.setEnabledAt(1, true);
 		tabbedPane.setEnabledAt(2, true);
-		tabbedPane.setEnabledAt(3, true);
-		tabbedPane.setEnabledAt(4, true);
 		tabbedPane.getSelectedComponent().setEnabled(true);
 		updateFooter();
 		launch.setEnabled(true);
@@ -801,17 +761,14 @@ public class LaunchFrame extends JFrame {
 	public void updateLocale() {
 		if(I18N.currentLocale == Locale.deDE) {
 			edit.setBounds(420, 20, 120, 30);
-			donate.setBounds(330, 20, 80, 30);
 			serverbutton.setBounds(420, 20, 390, 30);
 		} else {
 			edit.setBounds(480, 20, 60, 30);
-			donate.setBounds(390, 20, 80, 30);
 			serverbutton.setBounds(480, 20, 330, 30);
 		}
 		launch.setText(I18N.getLocaleString("LAUNCH_BUTTON"));
 		edit.setText(I18N.getLocaleString("EDIT_BUTTON"));
 		serverbutton.setText(I18N.getLocaleString("DOWNLOAD_SERVER_PACK"));
-		donate.setText(I18N.getLocaleString("DONATE_BUTTON"));
 		dropdown_[0] = I18N.getLocaleString("PROFILE_SELECT");
 		dropdown_[1] = I18N.getLocaleString("PROFILE_CREATE");
 		writeUsers((String)users.getSelectedItem());
@@ -838,40 +795,6 @@ public class LaunchFrame extends JFrame {
 		}
 		s.add(0, "modpacks.xml");
 		return s;
-	}
-
-	public int getUnreadNews() {
-		int i = 0;
-		BufferedReader reader = null;
-		try {
-			reader = new BufferedReader(new InputStreamReader(new URL("http://launcher.feed-the-beast.com/newsupdate.php").openStream()));
-			ArrayList<Long> timeStamps = new ArrayList<Long>();
-			String s = reader.readLine();
-			s = s.trim();
-			String[] str = s.split(",");
-			for (String aStr : str) {
-				if (!timeStamps.contains(Long.parseLong(aStr))) {
-					timeStamps.add(Long.parseLong(aStr));
-				}
-			}
-			long l;
-			if(Long.parseLong(Settings.getSettings().getNewsDate()) == 0) {
-				l = Long.parseLong(Settings.getSettings().getNewsDate());
-			} else {
-				l = Long.parseLong(Settings.getSettings().getNewsDate().substring(0, 10));
-			}
-			for (Long timeStamp : timeStamps) {
-				long time = timeStamp;
-				if (time > l) {
-					i++;
-				}
-			}
-
-		} catch (Exception e) {
-			Logger.logError(e.getMessage(), e);
-		}
-
-		return i;
 	}
 
 	public void doLaunch() {

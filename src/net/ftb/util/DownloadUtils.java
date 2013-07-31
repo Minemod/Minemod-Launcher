@@ -52,20 +52,21 @@ public class DownloadUtils extends Thread {
 		if(currentmd5.isEmpty()) {
 			currentmd5 = md5("mcepoch1" + getTime());
 		}
-		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://www.creeperrepo.net";
-		resolved += "/direct/FTB2/" + currentmd5 + "/" + file;
+		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://uk1.minemod.org";
+		resolved += "/static/FTB2/" + file;
 		HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(resolved).openConnection();
 			for(String server : downloadServers.values()) {
-				if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("www.creeperrepo.net")) {
-					resolved = "http://" + server + "/direct/FTB2/" + currentmd5 + "/" + file;
+				if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("uk1.minemod.org/")) {
+					resolved = "http://" + server + "/static/FTB2/" + file;
 					connection = (HttpURLConnection) new URL(resolved).openConnection();
 				}
 			}
 		} catch (IOException e) { }
 		connection.disconnect();
 		Logger.logInfo(resolved);
+		System.out.println("OI LOOK HERE THIS IS THE DIRECT LINK :" + resolved);
 		return resolved; 
 	}
 
@@ -74,14 +75,14 @@ public class DownloadUtils extends Thread {
 	 * @return - the direct link
 	 */
 	public static String getStaticCreeperhostLink(String file) {
-		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://www.creeperrepo.net";
+		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://uk1.minemod.org/";
 		resolved += "/static/FTB2/" + file;
 		HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(resolved).openConnection();
 			if(connection.getResponseCode() != 200) {
 				for(String server : downloadServers.values()) {
-					if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("www.creeperrepo.net")) {
+					if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("uk1.minemod.org/")) {
 						resolved = "http://" + server + "/static/FTB2/" + file;
 						connection = (HttpURLConnection) new URL(resolved).openConnection();
 					} else if(connection.getResponseCode() == 200) {
@@ -91,7 +92,8 @@ public class DownloadUtils extends Thread {
 			}
 		} catch (IOException e) { }
 		connection.disconnect();
-		return resolved; 
+		System.out.println("OI LOOK HERE THIS IS THE DIRECT LINK :" + resolved);
+		return resolved;	
 	}
 
 	/**
@@ -113,10 +115,7 @@ public class DownloadUtils extends Thread {
 	 */
 	public static boolean fileExists(String file) {
 		try {
-			if(currentmd5.isEmpty()) {
-				currentmd5 = md5("mcepoch1" + getTime());
-			}
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("http://www.creeperrepo.net/direct/FTB2/" + currentmd5 + "/" + file).openStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("http://uk1.minemod.org/static/FTB2/"+ file).openStream()));
 			return !reader.readLine().toLowerCase().contains("not found");
 		} catch (Exception e) {
 			return false;
@@ -149,14 +148,14 @@ public class DownloadUtils extends Thread {
 	public static String getTime() {
 		String content = null;
 		Scanner scanner = null;
-		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://www.creeperrepo.net";
+		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://uk1.minemod.org";
 		resolved += "/getdate";
 		HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(resolved).openConnection();
 			if(connection.getResponseCode() != 200) {
 				for(String server : downloadServers.values()) {
-					if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("www.creeperrepo.net")) {
+					if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("uk1.minemod.org")) {
 						resolved = "http://" + server + "/getdate";
 						connection = (HttpURLConnection) new URL(resolved).openConnection();
 					} else if(connection.getResponseCode() == 200) {
@@ -207,14 +206,14 @@ public class DownloadUtils extends Thread {
 	public static boolean isValid(File file, String url) throws IOException {
 		String content = null;
 		Scanner scanner = null;
-		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://www.creeperrepo.net";
+		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://uk1.minemod.org";
 		resolved += "/md5/FTB2/" + url;
 		HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(resolved).openConnection();
 			if(connection.getResponseCode() != 200) {
 				for(String server : downloadServers.values()) {
-					if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("www.creeperrepo.net")) {
+					if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("uk1.minemod.org")) {
 						resolved = "http://" + server + "/md5/FTB2/" + url;
 						connection = (HttpURLConnection) new URL(resolved).openConnection();
 					} else if(connection.getResponseCode() == 200) {
@@ -272,10 +271,10 @@ public class DownloadUtils extends Thread {
 	 */
 	@Override
 	public void run() {
-		downloadServers.put("Automatic", "www.creeperrepo.net");
+		downloadServers.put("Automatic", "uk1.minemod.org");
 		BufferedReader in = null;
 		try {
-			in = new BufferedReader(new InputStreamReader(new URL("http://www.creeperrepo.net/mirrors").openStream()));
+			in = new BufferedReader(new InputStreamReader(new URL("http://uk1.minemod.org").openStream()));
 			String line;
 			while((line = in.readLine()) != null) {
 				String[] splitString = line.split(",");

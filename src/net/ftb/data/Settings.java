@@ -1,7 +1,7 @@
 /*
  * This file is part of FTB Launcher.
  *
- * Copyright © 2012-2013, FTB Launcher Contributors <https://github.com/Slowpoke101/FTBLaunch/>
+ * Copyright © 2012-2013, FTB Launcher Contributors <https://github.com/Slowpoke101/minemodlaunch/>
  * FTB Launcher is licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -47,7 +47,7 @@ public class Settings extends Properties {
 
 	static {
 		try {
-			settings = new Settings(new File(OSUtils.getDynamicStorageLocation(), "launcher.cfg"));
+			settings = new Settings(new File(OSUtils.getDynamicStorageLocation(), "minemodlaunch.cfg"));
 		} catch (IOException e) {
 			Logger.logError("Failed to load settings", e);
 		}
@@ -68,7 +68,7 @@ public class Settings extends Properties {
 
 	public void save() {
 		try {
-			store(new FileOutputStream(configFile), "Minemod Launcher Config File");
+			store(new FileOutputStream(configFile), "minemodlaunch Config File");
 		} catch (IOException e) {
 			Logger.logError("Failed to save settings", e);
 		}

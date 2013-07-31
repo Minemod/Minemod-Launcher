@@ -52,9 +52,9 @@ import net.ftb.log.LogWriter;
 import net.ftb.log.Logger;
 import net.ftb.tools.PastebinPoster;
 
-@SuppressWarnings("all")
+@SuppressWarnings("serial")
 public class LauncherConsole extends JFrame implements ILogListener {
-	private final static String launcherLogFile = "FTBLauncherLog.txt";
+	private final static String launcherLogFile = "MinemodLauncherLog.txt";
 	private final static String minecraftLogFile = "MinecraftLog.txt";
 	private final JEditorPane displayArea;
 	private final HTMLEditorKit kit;
@@ -158,7 +158,7 @@ public class LauncherConsole extends JFrame implements ILogListener {
 				if (Desktop.isDesktopSupported()) {
 					Desktop desktop = Desktop.getDesktop();
 					try {
-						desktop.browse(new URI("http://support.feed-the-beast.com/?qa=hot"));
+						desktop.browse(new URI("http://support.minemod.org"));
 					} catch (Exception exc) {
 						Logger.logError("Could not open url: " + exc.getMessage());
 					}
