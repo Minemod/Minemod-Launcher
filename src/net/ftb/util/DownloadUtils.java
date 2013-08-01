@@ -48,25 +48,19 @@ public class DownloadUtils extends Thread {
 	 * @return - the direct link
 	 * @throws NoSuchAlgorithmException - see md5
 	 */
-	public static String getCreeperhostLink(String file) throws NoSuchAlgorithmException {
-		if(currentmd5.isEmpty()) {
-			currentmd5 = md5("mcepoch1" + getTime());
-		}
+	public static String getCreeperhostLink(String file) {
 		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://uk1.minemod.org";
-		resolved += "/static/FTB2/" + file;
+		resolved += "/static/minemod/" + file;
 		HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(resolved).openConnection();
 			for(String server : downloadServers.values()) {
-				if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("uk1.minemod.org/")) {
-					resolved = "http://" + server + "/static/FTB2/" + file;
+					resolved = "http://" + server + "/static/minemod/" + file;
 					connection = (HttpURLConnection) new URL(resolved).openConnection();
-				}
 			}
 		} catch (IOException e) { }
 		connection.disconnect();
 		Logger.logInfo(resolved);
-		System.out.println("OI LOOK HERE THIS IS THE DIRECT LINK :" + resolved);
 		return resolved; 
 	}
 
@@ -76,14 +70,14 @@ public class DownloadUtils extends Thread {
 	 */
 	public static String getStaticCreeperhostLink(String file) {
 		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://uk1.minemod.org/";
-		resolved += "/static/FTB2/" + file;
+		resolved += "/static/minemod/" + file;
 		HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(resolved).openConnection();
 			if(connection.getResponseCode() != 200) {
 				for(String server : downloadServers.values()) {
 					if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("uk1.minemod.org/")) {
-						resolved = "http://" + server + "/static/FTB2/" + file;
+						resolved = "http://" + server + "/static/minemod/" + file;
 						connection = (HttpURLConnection) new URL(resolved).openConnection();
 					} else if(connection.getResponseCode() == 200) {
 						break;
@@ -92,7 +86,6 @@ public class DownloadUtils extends Thread {
 			}
 		} catch (IOException e) { }
 		connection.disconnect();
-		System.out.println("OI LOOK HERE THIS IS THE DIRECT LINK :" + resolved);
 		return resolved;	
 	}
 
@@ -115,65 +108,11 @@ public class DownloadUtils extends Thread {
 	 */
 	public static boolean fileExists(String file) {
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("http://uk1.minemod.org/static/FTB2/"+ file).openStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("http://uk1.minemod.org/static/minemod/"+ file).openStream()));
 			return !reader.readLine().toLowerCase().contains("not found");
 		} catch (Exception e) {
 			return false;
 		}
-	}
-
-	/**
-	 * @param input - String to hash
-	 * @return - hashed string
-	 * @throws NoSuchAlgorithmException - in case "MD5" isnt a correct input
-	 */
-	public static String md5(String input) throws NoSuchAlgorithmException {
-		String result = input;
-		if (input != null) {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(input.getBytes());
-			BigInteger hash = new BigInteger(1, md.digest());
-			result = hash.toString(16);
-			while (result.length() < 32) {
-				result = "0" + result;
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * gets the time from the creeperhost servers
-	 * @return - the time in the DDMMYY format
-	 */
-	public static String getTime() {
-		String content = null;
-		Scanner scanner = null;
-		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://uk1.minemod.org";
-		resolved += "/getdate";
-		HttpURLConnection connection = null;
-		try {
-			connection = (HttpURLConnection) new URL(resolved).openConnection();
-			if(connection.getResponseCode() != 200) {
-				for(String server : downloadServers.values()) {
-					if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("uk1.minemod.org")) {
-						resolved = "http://" + server + "/getdate";
-						connection = (HttpURLConnection) new URL(resolved).openConnection();
-					} else if(connection.getResponseCode() == 200) {
-						break;
-					}
-				}
-			}
-			scanner = new Scanner(connection.getInputStream());
-			scanner.useDelimiter( "\\Z" );
-			content = scanner.next();
-		} catch (IOException e) { 
-		} finally {
-			connection.disconnect();
-			if (scanner != null) {
-				scanner.close();
-			}
-		}
-		return content;
 	}
 
 	/**
@@ -207,14 +146,14 @@ public class DownloadUtils extends Thread {
 		String content = null;
 		Scanner scanner = null;
 		String resolved = (downloadServers.containsKey(Settings.getSettings().getDownloadServer())) ? "http://" + downloadServers.get(Settings.getSettings().getDownloadServer()) : "http://uk1.minemod.org";
-		resolved += "/md5/FTB2/" + url;
+		resolved += "/md5/minemod/" + url;
 		HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(resolved).openConnection();
 			if(connection.getResponseCode() != 200) {
 				for(String server : downloadServers.values()) {
 					if(connection.getResponseCode() != 200 && !server.equalsIgnoreCase("uk1.minemod.org")) {
-						resolved = "http://" + server + "/md5/FTB2/" + url;
+						resolved = "http://" + server + "/md5/minemod/" + url;
 						connection = (HttpURLConnection) new URL(resolved).openConnection();
 					} else if(connection.getResponseCode() == 200) {
 						break;
@@ -231,39 +170,10 @@ public class DownloadUtils extends Thread {
 				scanner.close();
 			}
 		}
-		String result = fileMD5(file);
-		Logger.logInfo("Local: " + result.toUpperCase());
-		Logger.logInfo("Remote: " + content.toUpperCase());
-		return content.equalsIgnoreCase(result);
-	}
-
-	/**
-	 * Gets the md5 of the downloaded file
-	 * @param file - File to check
-	 * @return - string of file's md5
-	 * @throws IOException 
-	 */
-	private static String fileMD5(File file) throws IOException {
-		if(!file.exists()) {
-			return "";
-		}
-		URL fileUrl = file.toURI().toURL();
-		MessageDigest dgest = null;
-		try {
-			dgest = MessageDigest.getInstance("md5");
-		} catch (NoSuchAlgorithmException e) { }
-		InputStream str = fileUrl.openStream();
-		byte[] buffer = new byte[65536];
-		int readLen;
-		while((readLen = str.read(buffer, 0, buffer.length)) != -1) {
-			dgest.update(buffer, 0, readLen);
-		}
-		str.close();
-		Formatter fmt = new Formatter();    
-		for(byte b : dgest.digest()) { 
-			fmt.format("%02X", b);    
-		}
-		return fmt.toString();
+		//String result = file;
+		//Logger.logInfo("Local: " + result.toUpperCase());
+		//Logger.logInfo("Remote: " + content.toUpperCase());
+		return true;
 	}
 
 	/**

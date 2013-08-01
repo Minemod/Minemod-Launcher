@@ -271,7 +271,7 @@ public class LaunchFrame extends JFrame {
 		setFont(new Font("a_FuturaOrto", Font.PLAIN, 12));
 		setResizable(false);
 		setTitle("Minemod Launcher v" + version);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/logo_ftb.png")));
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/logo.png")));
 
 		panel = new JPanel();
 
@@ -351,14 +351,14 @@ public class LaunchFrame extends JFrame {
 				if(!ModPack.getSelectedPack().getServerUrl().isEmpty()) {
 					if(users.getSelectedIndex() > 1 && modPacksPane.packPanels.size() > 0) {
 						try {
-							String version = (Settings.getSettings().getPackVer().equalsIgnoreCase("recommended version") || Settings.getSettings().getPackVer().equalsIgnoreCase("newest version")) ? ModPack.getSelectedPack().getVersion().replace(".", "_") : Settings.getSettings().getPackVer().replace(".", "_");
+							String version = (Settings.getSettings().getSelectedPackVer().equalsIgnoreCase("recommended version") || Settings.getSettings().getPackVer().equalsIgnoreCase("newest version")) ? ModPack.getSelectedPack().getVersion().replace(".", "_") : Settings.getSettings().getPackVer().replace(".", "_");
 							if(ModPack.getSelectedPack().isPrivatePack()) {
-								OSUtils.browse(DownloadUtils.getCreeperhostLink("privatepacks%5E" + ModPack.getSelectedPack().getDir() + "%5E" + version + "%5E" + ModPack.getSelectedPack().getServerUrl()));
+								OSUtils.browse(DownloadUtils.getCreeperhostLink("privatepacks/" + ModPack.getSelectedPack().getDir() + "/" + version + "/" + ModPack.getSelectedPack().getServerUrl()));
 							} else {
-								OSUtils.browse(DownloadUtils.getCreeperhostLink("modpacks%5E" + ModPack.getSelectedPack().getDir() + "%5E" + version + "%5E" + ModPack.getSelectedPack().getServerUrl()));
+								OSUtils.browse(DownloadUtils.getCreeperhostLink("modpacks/" + ModPack.getSelectedPack().getDir() + "/" + version + "/" + ModPack.getSelectedPack().getServerUrl()));
 							}
 							TrackerUtils.sendPageView(ModPack.getSelectedPack().getName() + " Server Download", ModPack.getSelectedPack().getName());
-						} catch (NoSuchAlgorithmException e) { }
+						} catch (Exception e) { }
 					}
 				}
 			}
@@ -487,11 +487,11 @@ public class LaunchFrame extends JFrame {
 			Logger.logInfo(debugTag + "ForceUpdate: " + Settings.getSettings().getForceUpdate());
 			Logger.logInfo(debugTag + "installPath: " + installPath);
 			Logger.logInfo(debugTag + "pack dir: " + pack.getDir());
-			Logger.logInfo(debugTag + "pack check path: " + pack.getDir() + File.separator + "version");
+			Logger.logInfo(debugTag + "pack check path: " + pack.getDir() + "/" + "version");
 		}
 
-		if(Settings.getSettings().getForceUpdate() && new File(installPath, pack.getDir() + File.separator + "version").exists()) {
-			new File(installPath, pack.getDir() + File.separator + "version").delete();
+		if(Settings.getSettings().getForceUpdate() && new File(installPath, pack.getDir() + "/" + "version").exists()) {
+			new File(installPath, pack.getDir() + "/" + "version").delete();
 			if (debugVerbose) { Logger.logInfo(debugTag + "Pack found and delete attempted"); }
 		}
 		if(!initializeMods()) {
@@ -501,7 +501,7 @@ public class LaunchFrame extends JFrame {
 		}
 		MinecraftVersionDetector mvd = new MinecraftVersionDetector();
 
-		// I know it's wordy, but it's correct; why is this not using File.separator ? http://stackoverflow.com/questions/2417485/file-separator-vs-slash-in-paths
+		// I know it's wordy, but it's correct; why is this not using "/" ? http://stackoverflow.com/questions/2417485/file-separator-vs-slash-in-paths
 
 		if(!new File(installPath, pack.getDir() + "/minecraft/bin/minecraft.jar").exists() || mvd.shouldUpdate(installPath + "/" + pack.getDir() + "/minecraft")) {
 			final ProgressMonitor progMonitor = new ProgressMonitor(this, "Downloading minecraft...", "", 0, 100);

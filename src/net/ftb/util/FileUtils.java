@@ -21,11 +21,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.channels.FileChannel;
+import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 import java.util.jar.JarOutputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 import net.ftb.data.ModPack;
@@ -100,33 +103,51 @@ public class FileUtils {
 	 * @param zipLocation - the location of the zip to be extracted
 	 * @param outputLocation - location to extract to
 	 */
-	public static void extractZipTo(String zipLocation, String outputLocation) {
+	public static void extractZipTo(String zipLocation, String outputLocation) 
+	{
 		ZipInputStream zipinputstream = null;
-		try {
+		try 
+		{
 			byte[] buf = new byte[1024];
 			zipinputstream = new ZipInputStream(new FileInputStream(zipLocation));
 			ZipEntry zipentry = zipinputstream.getNextEntry();
-			while (zipentry != null) { 
+			
+			while (zipentry != null)
+			{ 
 				String entryName = zipentry.getName();
 				int n;
-				if(!zipentry.isDirectory() && !entryName.equalsIgnoreCase("minecraft") && !entryName.equalsIgnoreCase(".minecraft") && !entryName.equalsIgnoreCase("instMods")) {
-					new File(outputLocation + File.separator + entryName).getParentFile().mkdirs();
-					FileOutputStream fileoutputstream = new FileOutputStream(outputLocation + File.separator + entryName);             
-					while ((n = zipinputstream.read(buf, 0, 1024)) > -1) {
+				
+				if(!zipentry.isDirectory() && !entryName.equalsIgnoreCase("minecraft") && !entryName.equalsIgnoreCase(".minecraft") && !entryName.equalsIgnoreCase("instMods"))
+				{
+					new File(outputLocation + "/" + entryName).getParentFile().mkdirs();
+					FileOutputStream fileoutputstream = new FileOutputStream(outputLocation + "/" + entryName);  
+					
+					while ((n = zipinputstream.read(buf, 0, 1024)) > -1) 
+					{
 						fileoutputstream.write(buf, 0, n);
 					}
+					
 					fileoutputstream.close();
 				}
+				
 				zipinputstream.closeEntry();
 				zipentry = zipinputstream.getNextEntry();
 			}
-		} catch (Exception e) {
+			
+		} 
+		catch (Exception e) 
+		{
 			Logger.logError(e.getMessage(), e);
 			backupExtract(zipLocation, outputLocation);
-		} finally {
-			try {
+			
+		} 
+		finally
+		{
+			try 
+			{
 				zipinputstream.close();
-			} catch (IOException e) { }
+			}
+			catch (IOException e) { }
 		}
 	}
 

@@ -211,7 +211,7 @@ public class ModpacksPane extends JPanel implements ILauncherPane, ModPackListen
 								}
 								TrackerUtils.sendPageView(ModPack.getSelectedPack().getName() + " Server Download", ModPack.getSelectedPack().getName());
 							}
-						} catch (NoSuchAlgorithmException e) { }
+						} catch (Exception e) { }
 					}
 				}
 			}

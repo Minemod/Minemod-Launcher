@@ -68,11 +68,11 @@ public class OSUtils {
 	public static String getDynamicStorageLocation() {
 		switch(getCurrentOS()) {
 		case WINDOWS:
-			return System.getenv("APPDATA") + "/.MinemodLauncher/";
+			return System.getenv("APPDATA") + "/minemodlauncher/";
 		case MACOSX:
-			return cachedUserHome + "/Library/Application Support/.MinemodLauncher/";
+			return cachedUserHome + "/Library/Application Support/minemodlauncher/";
 		case UNIX:
-			return cachedUserHome + "/.MinemodLauncher/";
+			return cachedUserHome + "/.minemodlauncher/";
 		default:
 			return getDefInstallPath() + "/temp/";
 		}

@@ -2,17 +2,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.ftb</groupId>
-  <artifactId>FTB_Launcher</artifactId>
-  <version>1.2.5</version>
+  <artifactId>Minemod_Launcher</artifactId>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
 
-  <name>FTB Launcher</name>
-  <description>Launcher for the FTB Mod Pack </description>
-  <url>https://github.com/Slowpoke101/FTBLaunch</url>
+  <name>Minemod Launcher</name>
+  <description>Launcher for the Minemod Mod Pack </description>
+  <url>https://github.com/Minemod/Minemod-Launcher</url>
   <inceptionYear>2012</inceptionYear>
   <organization>
-    <name>FTB Launcher Contributors</name>
-    <url>https://github.com/Slowpoke101/FTBLaunch</url>
+    <name>Minemod Launcher Contributors</name>
+    <url>https://github.com/Minemod/Minemod-Launcher</url>
   </organization>
   <licenses>
     <license>
@@ -24,15 +24,15 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:https://github.com/Slowpoke101/FTBLaunch.git</connection>
-    <developerConnection>scm:git:git@github.com:Slowpoke101/FTBLaunch.git</developerConnection>
+    <connection>scm:git:https://github.com/Minemod/Minemod-Launcher.git</connection>
+    <developerConnection>scm:git:git@github.com:Minemod/Minemod-Launcher.git</developerConnection>
     <tag>master</tag>
-    <url>https://github.com/Slowpoke101/FTBLaunch</url>
+    <url>https://github.com/Minemod/Minemod-Launcher</url>
   </scm>
 
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/Slowpoke101/FTBLaunch/issues</url>
+    <url>https://github.com/Minemod/Minemod-Launcher/issues</url>
   </issueManagement>
 
   <properties>
@@ -257,7 +257,7 @@
                   <zipFile>${project.build.directory}/${project.build.finalName}-app.zip</zipFile>
                   <internetEnable>true</internetEnable>
                   <jvmVersion>${minimumJreVersion}+</jvmVersion>
-                  <vmOptions>-Xms512M -Xmx1024M -Xdock:name="FTB Launcher" -Xdock:icon="icon.icns"</vmOptions>
+                  <vmOptions>-Xms512M -Xmx1024M -Xdock:name="Minemod Launcher" -Xdock:icon="icon.icns"</vmOptions>
                   <excludeArtifactIds>
                     <excludeArtifactId>swingx-all</excludeArtifactId>
                   </excludeArtifactIds>

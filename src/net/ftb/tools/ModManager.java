@@ -64,22 +64,22 @@ public class ModManager extends JDialog {
 
 	public class ModManagerWorker extends SwingWorker<Boolean, Void> {
 		@Override
-		protected Boolean doInBackground() {
-			try {
-				if(!upToDate()) {
-					String installPath = OSUtils.getDynamicStorageLocation();
-					ModPack pack = ModPack.getSelectedPack();
-					pack.setUpdated(true);
-					File modPackZip = new File(installPath, "ModPacks" + sep + pack.getDir() + sep + pack.getUrl());
-					if(modPackZip.exists()) {
-						FileUtils.delete(modPackZip);
-					}
-					File animationGif = new File(OSUtils.getDynamicStorageLocation(), "ModPacks" + sep + pack.getDir() + sep + pack.getAnimation());
-					if(animationGif.exists()) {
-						FileUtils.delete(animationGif);
-					}
-					erroneous = !downloadModPack(pack.getUrl(), pack.getDir());
-				}
+		 protected Boolean doInBackground() {
+			   try {
+			     if(!upToDate()) {
+			       String installPath = OSUtils.getDynamicStorageLocation();
+			       ModPack pack = ModPack.getSelectedPack();
+			       pack.setUpdated(true);
+			       File modPackZip = new File(installPath, "ModPacks" + sep + pack.getDir() + sep + pack.getUrl());
+			       if(modPackZip.exists()) {
+			         FileUtils.delete(modPackZip);
+			       }
+			       File animationGif = new File(OSUtils.getDynamicStorageLocation(), "ModPacks" + sep + pack.getDir() + sep + pack.getAnimation());
+			       if(animationGif.exists()) {
+			         FileUtils.delete(animationGif);
+			       }
+			       erroneous = !downloadModPack(pack.getUrl(), pack.getDir());
+			    }
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -131,7 +131,7 @@ public class ModManager extends JDialog {
 			String dynamicLoc = OSUtils.getDynamicStorageLocation();
 			String installPath = Settings.getSettings().getInstallPath();
 			ModPack pack = ModPack.getSelectedPack();
-			String baseLink = (pack.isPrivatePack() ? "privatepacks"+ sep + dir + sep + curVersion + sep : "modpacks"+ sep + dir + sep + curVersion + sep);
+			String baseLink = (pack.isPrivatePack() ? "privatepacks/" + dir + "/" + curVersion + "/" : "modpacks/" + dir + "/" + curVersion + "/");
 			File baseDynamic = new File(dynamicLoc, "ModPacks" + sep + dir + sep);
 			if (debugVerbose) {
 				Logger.logInfo(debugTag + "pack dir: " + dir);
@@ -143,16 +143,14 @@ public class ModManager extends JDialog {
 			try {
 				new File(baseDynamic, modPackName).createNewFile();
 				downloadUrl(baseDynamic.getPath() + sep + modPackName, DownloadUtils.getCreeperhostLink(baseLink + modPackName));
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			String animation = pack.getAnimation();
 			if(!animation.equalsIgnoreCase("empty")) {
 				try {
 					downloadUrl(baseDynamic.getPath() + sep + animation, DownloadUtils.getCreeperhostLink(baseLink + animation));
-				} catch (NoSuchAlgorithmException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -181,6 +179,7 @@ public class ModManager extends JDialog {
 			return false;
 		}
 	}
+
 
 	/**
 	 * Create the frame.
@@ -270,20 +269,16 @@ public class ModManager extends JDialog {
 		}
 	}
 
+
 	public static void cleanUp() {
 		ModPack pack = ModPack.getSelectedPack();
-		File tempFolder = new File(OSUtils.getDynamicStorageLocation(), "ModPacks" + sep + pack.getDir() + sep);
+		File tempFolder = new File(OSUtils.getDynamicStorageLocation(), "ModPacks" + "/" + pack.getDir() + "/");
 		for(String file : tempFolder.list()) {
 			if(!file.equals(pack.getLogoName()) && !file.equals(pack.getImageName()) && !file.equals("version") && !file.equals(pack.getAnimation())) {
-				try {
 					if (Settings.getSettings().getDebugLauncher() && file.endsWith(".zip")) {
 						Logger.logInfo("debug: retaining modpack file: " + tempFolder + File.separator + file);
-					} else {
-						FileUtils.delete(new File(tempFolder, file));
 					}
-				} catch (IOException e) {
-					Logger.logError(e.getMessage(), e);
-				}
+
 			}
 		}
 	}

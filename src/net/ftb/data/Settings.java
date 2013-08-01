@@ -1,7 +1,7 @@
 /*
  * This file is part of FTB Launcher.
  *
- * Copyright © 2012-2013, FTB Launcher Contributors <https://github.com/Slowpoke101/minemodlaunch/>
+ * Copyright © 2012-2013, FTB Launcher Contributors <https://github.com/Slowpoke101/FTBLaunch/>
  * FTB Launcher is licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -166,6 +166,10 @@ public class Settings extends Properties {
 		return getProperty(packDir, "Recommended Version");
 	}
 
+	public String getSelectedPackVer() {
+		return getProperty(ModPack.getSelectedPack().getVersion() + ModPack.getSelectedPack().getDir(), "Recommended Version");
+	}
+	
 	public String getLastAddPath() {
 		return getProperty("lastAddPath", "");
 	}
@@ -254,7 +258,7 @@ public class Settings extends Properties {
 	}
 
 	public boolean getDebugLauncher() {
-		return Boolean.parseBoolean(getProperty("debugLauncher", "false"));
+		return Boolean.parseBoolean(getProperty("debugLauncher", "true"));
 	}
 
 	public void setLoaded(boolean state) {

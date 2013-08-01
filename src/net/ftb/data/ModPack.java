@@ -40,7 +40,7 @@ import net.ftb.util.OSUtils;
 import net.ftb.workers.ModpackLoader;
 
 public class ModPack {	
-	private String name, author, version, url, dir, mcVersion, serverUrl, logoName, imageName, info, animation, maxPermSize, sep = File.separator, xml;
+	private String name, author, version, url, dir, mcVersion, serverUrl, logoName, imageName, info, animation, maxPermSize, xml;
 	private String[] mods, oldVersions;
 	private Image logo, image;
 	private int index;
@@ -183,7 +183,7 @@ public class ModPack {
 			this.oldVersions = oldVersions.split(";");
 		}
 		String installPath = OSUtils.getDynamicStorageLocation();
-		File tempDir = new File(installPath, "ModPacks" + sep + dir);
+		File tempDir = new File(installPath, "ModPacks" + "/" + dir);
 		File verFile = new File(tempDir, "version");
 		URL url_;
 		if(!upToDate(verFile)) {
@@ -199,7 +199,7 @@ public class ModPack {
 			tempImg.flush();
 		} else {
 			if(new File(tempDir, logo).exists()) {
-				this.logo = Toolkit.getDefaultToolkit().createImage(tempDir.getPath() + sep + logo);
+				this.logo = Toolkit.getDefaultToolkit().createImage(tempDir.getPath() + "/" + logo);
 			} else {
 				url_ = new URL(DownloadUtils.getStaticCreeperhostLink(logo));
 				this.logo = Toolkit.getDefaultToolkit().createImage(url_);
@@ -208,7 +208,7 @@ public class ModPack {
 				tempImg.flush();
 			}
 			if(new File(tempDir, image).exists()) {
-				this.image = Toolkit.getDefaultToolkit().createImage(tempDir.getPath() + sep + image);
+				this.image = Toolkit.getDefaultToolkit().createImage(tempDir.getPath() + "/" + image);
 			} else {
 				url_ = new URL(DownloadUtils.getStaticCreeperhostLink(image));
 				this.image = Toolkit.getDefaultToolkit().createImage(url_);
